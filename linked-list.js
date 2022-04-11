@@ -32,13 +32,41 @@ class LinkedList {
   /** unshift(val): add new value to start of list. */
 
   unshift(val) {
-
+    const newNode = new Node(val);
+    if (this.head === null){
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+    }
+  
+    this.head = newNode;
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
+    let current = this.head;
+    
+    // if empty list
+    if (this.tail === null) return null;
 
+    // if only 1 item in LL
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+      return current;
+    }
+
+    // all other cases
+    while (current !== null) {
+      // second from last item
+      if (current.next.next === null) {
+        current.next = null;
+        this.tail = current;
+        return current.next;
+      }
+      current = current.next;
+    }
   }
 
   /** shift(): return & remove first item. */
