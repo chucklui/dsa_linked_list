@@ -27,6 +27,7 @@ class LinkedList {
     if(this.head === null) this.head = newNode;
     if(this.tail !== null) this.tail.next = newNode;
     this.tail = newNode;
+    this.length++;
   }
 
   /** unshift(val): add new value to start of list. */
@@ -38,7 +39,7 @@ class LinkedList {
     } else {
       newNode.next = this.head;
     }
-  
+    this.length++;
     this.head = newNode;
   }
 
@@ -54,16 +55,19 @@ class LinkedList {
     if (this.head === this.tail) {
       this.head = null;
       this.tail = null;
-      return current;
+      this.length--;
+      return current.val;
     }
 
     // all other cases
     while (current !== null) {
       // second from last item
       if (current.next.next === null) {
+        const popNode = current.next;
         current.next = null;
         this.tail = current;
-        return current.next;
+        this.length--;
+        return popNode.val;
       }
       current = current.next;
     }
@@ -72,13 +76,39 @@ class LinkedList {
   /** shift(): return & remove first item. */
 
   shift() {
+    let current = this.head;
 
+    // if empty list
+    if (this.tail === null) return null;
+
+    // if only 1 item in LL
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return current.val;
+    }
+
+    // all other cases
+    this.head = current.next;
+    this.length--;
+    return current.val;
   }
 
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
+    let current = this.head; 
+    // let target = idx;
+    let count = 0;
 
+    while(current !== null){
+      if(count === idx){
+        return current.val;
+      }
+      current = current.next;
+      count++;
+    }
   }
 
   /** setAt(idx, val): set val at idx to val */
