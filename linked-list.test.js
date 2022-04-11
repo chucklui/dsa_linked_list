@@ -109,6 +109,7 @@ describe("insertAt", function() {
     expect(lst.head.next.next.next.val).toBe(15);
     expect(lst.head.next.next.next.next.val).toBe(20);
 
+    // [5, 10, 12, 15, 20]
     lst.insertAt(5, 25);
     expect(lst.head.next.next.next.next.next.val).toBe(25);
     expect(lst.tail.val).toBe(25);
@@ -121,6 +122,15 @@ describe("insertAt", function() {
     expect(lst.length).toBe(1);
     expect(lst.head.val).toBe(5);
     expect(lst.tail.val).toBe(5);
+  });
+
+  it("inserts into list of 1 value", function() {
+    let lst = new LinkedList([1]);
+
+    lst.insertAt(0, 10);
+    expect(lst.length).toBe(2);
+    expect(lst.head.val).toBe(10);
+    expect(lst.tail.val).toBe(1);
   });
 });
 

@@ -99,7 +99,6 @@ class LinkedList {
 
   getAt(idx) {
     let current = this.head; 
-    // let target = idx;
     let count = 0;
 
     while(current !== null){
@@ -114,13 +113,53 @@ class LinkedList {
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    let current = this.head; 
+    let count = 0;
 
+    while(current !== null){
+      if(count === idx){
+        current.val = val;
+      }
+      current = current.next;
+      count++;
+    }
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
+    let current = this.head; 
+    let count = 0;
+    const newNode = new Node(val);
 
+    // emtpy list
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+
+    while(current !== null){
+      // only 1 element in list
+      if (this.head === this.tail) {
+        this.head = newNode;
+        newNode.next = current;
+      }
+      // tail element
+      if (current === this.tail) {
+        this.tail = newNode;
+        current.next = newNode;
+      }
+      // all other elements
+      if (count === idx-1){
+        newNode.next = current.next;
+        current.next = newNode;
+      }
+      
+      current = current.next;
+      count++;
+    }
+
+    this.length++;
   }
 
   /** removeAt(idx): return & remove item at idx, */
