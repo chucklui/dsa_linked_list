@@ -144,28 +144,52 @@ class LinkedList {
         this.head = newNode;
         newNode.next = current;
       }
-      // tail element
-      if (current === this.tail) {
-        this.tail = newNode;
-        current.next = newNode;
-      }
+
       // all other elements
       if (count === idx-1){
-        newNode.next = current.next;
+        if (current === this.tail) {
+          this.tail = newNode;
+        }else{
+          newNode.next = current.next;
+        }
         current.next = newNode;
       }
-      
       current = current.next;
       count++;
     }
-
     this.length++;
   }
 
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
+    let current = this.head; 
+    let count = 0;
 
+    //empty list
+    if(this.head === null) return null;
+
+    while(current !== null){
+      //one item case
+      if(this.head === this.tail){
+        this.head = null;
+        this.tail = null;
+      }
+
+      //all other cases
+      if(count === idx-1){
+        //remove from the front
+        if(count === 0) this.head = current.next;
+        //remove from the back
+        if(current.next.next === null) this.tail = current
+        //all other cases
+        current.next = current.next.next;
+      }
+
+      current = current.next;
+      count++;
+    }
+    this.length--;
   }
 
   /** average(): return an average of all values in the list */
